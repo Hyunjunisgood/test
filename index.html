@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전자기학 — 전기와 자기의 우주적 춤</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <canvas id="fieldCanvas" class="canvas-field" aria-hidden="true"></canvas>
+
+  <header>
+    <div class="header-inner">
+      <a href="#top" class="logo">
+        <span class="logo-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <circle cx="14" cy="14" r="12" stroke="var(--electric)" stroke-width="1.5" opacity="0.5"/>
+            <path d="M14 2v24M2 14h24" stroke="var(--electric)" stroke-width="1" opacity="0.4"/>
+            <circle cx="14" cy="14" r="4" fill="var(--electric)" opacity="0.3"/>
+            <circle cx="14" cy="14" r="1.5" fill="var(--electric)"/>
+          </svg>
+        </span>
+        <span class="logo-text">Electromagnetism</span>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <ul class="nav-list">
+          <li><a href="#fundamentals" data-nav="fundamentals">기본 원리</a></li>
+          <li><a href="#maxwell" data-nav="maxwell">맥스웰 방정식</a></li>
+          <li><a href="#phenomena" data-nav="phenomena">전자기 현상</a></li>
+          <li><a href="#visualization" data-nav="visualization">인터랙티브</a></li>
+          <li><a href="#applications" data-nav="applications">응용</a></li>
+          <li><a href="#timeline" data-nav="timeline">역사</a></li>
+        </ul>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== 히어로 ===== -->
+    <section id="top" class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-orb hero-orb--1"></div>
+        <div class="hero-orb hero-orb--2"></div>
+        <div class="hero-orb hero-orb--3"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot" aria-hidden="true"></span>
+          물리학의 핵심 이론
+        </div>
+        <h1 class="hero-title">
+          <span class="title-line title-line--1">전기와 자기</span>
+          <span class="title-line title-line--2">하나의 힘으로</span>
+        </h1>
+        <p class="hero-subtitle">
+          전하가 만들어내는 전기장, 움직이는 전하가 만들어내는 자기장.
+          맥스웰이 증명한 하나의 통합된 힘 — <strong>전자기학</strong>의 세계로 초대합니다.
+        </p>
+        <div class="hero-cta">
+          <a href="#fundamentals" class="btn btn--primary">기본 원리 알아보기</a>
+          <a href="#visualization" class="btn btn--ghost">인터랙티브 체험</a>
+        </div>
+        <div class="hero-scroll-indicator" aria-hidden="true">
+          <div class="scroll-mouse">
+            <div class="scroll-wheel"></div>
+          </div>
+          <span>아래로 스크롤</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 기본 원리 ===== -->
+    <section id="fundamentals" class="section section--dark">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-label" data-label="원리">기본 원리</span>
+          <h2 class="section-title">전자기학을 지탱하는 세 가지 축</h2>
+          <p class="section-desc">전기와 자기는 별개의 현상이 아닙니다. 서로 독립적이면서도 긴밀하게 연결된, 하나의 통합된 법칙 아래 움직이는 현상입니다.</p>
+        </div>
+
+        <div class="cards-grid cards-grid--3">
+          <article class="card card--electric">
+            <div class="card-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <circle cx="20" cy="20" r="15" stroke="var(--electric)" stroke-width="1.5" opacity="0.6"/>
+                <circle cx="20" cy="20" r="15" stroke="var(--electric)" stroke-width="3" stroke-dasharray="6 12" opacity="0.9"/>
+                <circle cx="20" cy="20" r="5" fill="var(--electric)" opacity="0.8"/>
+                <circle cx="20" cy="20" r="2" fill="white"/>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">전기장 <span class="card-sub">Electric Field</span></h3>
+              <p class="card-text">
+                전하(charge)가 존재하는 것만으로도 공간에는 <strong>전기장</strong>이 형성됩니다.
+                전하가 정지해 있어도 전기장은 존재하며, 다른 전하에 힘을 전달합니다.
+                쿨롱의 법칙은 두 점전하 사이의 힘을 정량화합니다.
+              </p>
+              <div class="card-formula">
+                <code class="formula">
+                  <span class="hl">F</span> = <span class="hl">k</span><sub>e</sub>
+                  <span class="hl">q</span><sub>1</sub>
+                  <span class="hl">q</span><sub>2</sub>
+                  /
+                  <span class="hl">r</span><sup>2</sup>
+                </code>
+              </div>
+            </div>
+          </article>
+
+          <article class="card card--magnetic">
+            <div class="card-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <defs>
+                  <linearGradient id="magGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="var(--magnetic)"/>
+                    <stop offset="100%" stop-color="var(--magnetic2)"/>
+                  </linearGradient>
+                </defs>
+                <path d="M20 5 C8 12, 8 28, 20 35 C32 28, 32 12, 20 5Z" stroke="url(#magGrad)" stroke-width="2" fill="none" opacity="0.8"/>
+                <path d="M20 8 C11 13, 11 27, 20 32 C29 27, 29 13, 20 8Z" stroke="url(#magGrad)" stroke-width="1.5" fill="none" opacity="0.5"/>
+                <circle cx="20" cy="20" r="2" fill="var(--magnetic)" opacity="0.9"/>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">자기장 <span class="card-sub">Magnetic Field</span></h3>
+              <p class="card-text">
+                <strong>자기장</strong>은 움직이는 전하(전류) 또는 자기 쌍극자에 의해 생성됩니다.
+                정지한 전하에게는 아무 힘도 작용하지 않지만, 움직이는 전하에게는
+                언제나 운동 방향에 수직인 방향으로 힘을 가합니다. 이것이 로렌츠 힘입니다.
+              </p>
+              <div class="card-formula">
+                <code class="formula">
+                  <span class="hl">F</span> = <span class="hl">q</span>(
+                  <span class="hl">E</span> + <span class="hl">v</span> × <span class="hl">B</span>)
+                </code>
+              </div>
+            </div>
+          </article>
+
+          <article class="card card--light">
+            <div class="card-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <path d="M5 20 L15 10 L22 22 L29 8 L35 20" stroke="var(--light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+                <path d="M5 20 L15 10 L22 22 L29 8 L35 20" stroke="var(--light)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.15" fill="var(--light)"/>
+                <circle cx="20" cy="20" r="1" fill="var(--light)"/>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">전자기파 <span class="card-sub">Electromagnetic Wave</span></h3>
+              <p class="card-text">
+                변화하는 전기장은 자기장을, 변화하는 자기장은 전기장을 만들어냅니다.
+                이 연쇄 반응이 공간 속으로 자가 전파(self-propagation) 되는 현상이
+                <strong>전자기파</strong>이며, 빛 자체도 전자기파의 한 형태입니다.
+              </p>
+              <div class="card-formula">
+                <code class="formula">
+                  <span class="hl">c</span> =
+                  <span class="hl">1</span> /
+                  <span style="font-size:0.85em">√</span>(
+                  <span class="hl">μ</span><sub>0</sub>
+                  <span class="hl">ε</span><sub>0</sub>)
+                </code>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="fundamentals-note">
+          <div class="note-grid">
+            <div class="note-item">
+              <div class="note-num">01</div>
+              <div class="note-content">
+                <h4 class="note-title">전하의 보존</h4>
+                <p class="note-text">고립된 계의 총 전하량은 항상 보존됩니다. 전자는 사라지지 않고, 계 내부에서만 이동할 뿐입니다.</p>
+              </div>
+            </div>
+            <div class="note-item">
+              <div class="note-num">02</div>
+              <div class="note-content">
+                <h4 class="note-title">중첩의 원리</h4>
+                <p class="note-text">여러 전하가 만드는 전기장은 각각의 전하가 개별적으로 만드는 전기장의 벡터 합입니다. 선형성이 핵심 성질입니다.</p>
+              </div>
+            </div>
+            <div class="note-item">
+              <div class="note-num">03</div>
+              <div class="note-content">
+                <h4 class="note-title">가우스의 법칙</h4>
+                <p class="note-text">폐곡면을 통과하는 전기 선속은 그 내부에 있는 총 전하량에 비례합니다. 거울대칭과 구면 대칭이 계산을 단순화합니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 맥스웰 방정식 ===== -->
+    <section id="maxwell" class="section section--medium">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-label" data-label="통합">맥스웰 방정식</span>
+          <h2 class="section-title">네 개의 방정식이 우주를 설명하다</h2>
+          <p class="section-desc">제임스 클러크 맥스웰은 전기와 자기에 관한 기존의 실험 법칙들을 통합하여, 단 네 개의 방정식으로 전자기 현상의 거의 전부를 기술하는 데 성공했습니다.</p>
+        </div>
+
+        <div class="maxwell-grid">
+          <div class="maxwell-eq">
+            <div class="eq-index eq-index--1">I</div>
+            <div class="eq-content">
+              <div class="eq-title">가우스 법칙<br><span class="eq-sub">Gauss's Law</span></div>
+              <div class="eq-display">
+                <span class="eq-symbol">∯</span>
+                <span class="eq-vec">E</span> · d<span class="eq-vec">A</span>
+                <span class="eq-equals">=</span>
+                <span class="eq-fraction">
+                  <span class="eq-top">Q</span><sub class="eq-sub-script">enclosed</sub>
+                </span>
+                <span class="eq-over">
+                  <span class="eq-bottom">ε</span><sub>0</sub>
+                </span>
+              </div>
+              <p class="eq-desc">
+                폐곡면을 통과하는 총 전기 선속은 그 내부 전하량에 비례합니다.
+                전기장 선은 양전하에서 시작해 음전하에서 끝납니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="maxwell-eq">
+            <div class="eq-index eq-index--2">II</div>
+            <div class="eq-content">
+              <div class="eq-title">가우스 법칙 (자기)<br><span class="eq-sub">Gauss's Law for Magnetism</span></div>
+              <div class="eq-display">
+                <span class="eq-symbol">∯</span>
+                <span class="eq-vec">B</span> · d<span class="eq-vec">A</span>
+                <span class="eq-equals">=</span>
+                <span class="eq-zero">0</span>
+              </div>
+              <p class="eq-desc">
+                자기장 선은 항상 닫힌 고리를 형성합니다. 자기 홀극(monopole)은
+                존재하지 않으며, 자석의 N극과 S극은 언제나 쌍을 이룹니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="maxwell-eq">
+            <div class="eq-index eq-index--3">III</div>
+            <div class="eq-content">
+              <div class="eq-title">패러데이 법칙<br><span class="eq-sub">Faraday's Law of Induction</span></div>
+              <div class="eq-display">
+                <span class="eq-symbol">∮</span>
+                <span class="eq-vec">E</span> · d<span class="eq-vec">l</span>
+                <span class="eq-equals">=</span>
+                <span class="eq-fraction">
+                  <span class="eq-top">−d</span><span class="eq-top">Φ</span><sub>B</sub>
+                </span>
+                <span class="eq-over">
+                  <span class="eq-bottom">dt</span>
+                </span>
+              </div>
+              <p class="eq-desc">
+                변화하는 자기 선속은 폐회로에 기전력(EMF)을 유도합니다.
+                발전기, 변압기, 무선 충전 모두 이 원리로 작동합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="maxwell-eq">
+            <div class="eq-index eq-index--4">IV</div>
+            <div class="eq-content">
+              <div class="eq-title">앙페르-맥스웰 법칙<br><span class="eq-sub">Ampère–Maxwell Law</span></div>
+              <div class="eq-display">
+                <span class="eq-symbol">∮</span>
+                <span class="eq-vec">B</span> · d<span class="eq-vec">l</span>
+                <span class="eq-equals">=</span>
+                <span class="eq-fraction">
+                  <span class="eq-top">μ</span><sub>0</sub>
+                  <span class="eq-top">I</span>
+                  <span class="eq-top">+ μ</span><sub>0</sub>
+                  <span class="eq-top">ε</span><sub>0</sub>
+                  <span class="eq-top">dΦ</span><sub>E</sub>/dt
+                </span>
+                <span class="eq-over">
+                  <span class="eq-bottom"></span>
+                </span>
+              </div>
+              <p class="eq-desc">
+                전류와 변화하는 전기장(변위 전류) 모두 자기장을 생성합니다.
+                맥스웰이 추가한 변위 전류 항이 전자기파 존재의 예측을 가능하게 했습니다.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="maxwell-summary">
+          <div class="summary-inner">
+            <div class="summary-quote">
+              <span class="quote-mark" aria-hidden="true">"</span>
+              <p>맥스웰 방정식 없이는 빛의 본질을 이해할 수 없고, 빛의 본질 없이는 현대 문명을 이해할 수 없다.</p>
+              <span class="quote-author">— Richard Feynman</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 전자기 현상 ===== -->
+    <section id="phenomena" class="section section--dark">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-label" data-label="현상">전자기 현상</span>
+          <h2 class="section-title">일상에서 만나는 전자기학</h2>
+          <p class="section-desc">전자기학은 거대한 가속기 속 입자 충돌부터 스마트폰의 터치스크린까지, 우리가 인지하지 못하는 사이에도 매 순간 작동하고 있습니다.</p>
+        </div>
+
+        <div class="phenomena-grid">
+          <article class="phenomenon">
+            <div class="phenomenon-visual phenomenon-visual--1">
+              <div class="phenomenon-shape"></div>
+              <div class="phenomenon-shape phenomenon-shape--delayed"></div>
+            </div>
+            <div class="phenomenon-body">
+              <div class="phenomenon-category" data-cat="기초">기초</div>
+              <h3 class="phenomenon-title">정전기</h3>
+              <p class="phenomenon-desc">
+                마른 머리카락을 빗으로 빗을 때 일어나는 현상입니다. 마찰에 의해 전자가 한 물체에서 다른 물체로 이동해
+                전하 불균형이 생기고, 이로 인해 머리카락이 빗에 끌려 올라갑니다. 건조한 날씨일수록 더 극적으로 나타납니다.
+              </p>
+            </div>
+          </article>
+
+          <article class="phenomenon">
+            <div class="phenomenon-visual phenomenon-visual--2">
+              <div class="phenomenon-particles">
+                <span class="pp-article pp-article--1"></span>
+                <span class="pp-article pp-article--2"></span>
+                <span class="pp-article pp-article--3"></span>
+                <span class="pp-article pp-article--4"></span>
+                <span class="pp-article pp-article--5"></span>
+                <span class="pp-article pp-article--6"></span>
+              </div>
+            </div>
+            <div class="phenomenon-body">
+              <div class="phenomenon-category" data-cat="응용">응용</div>
+              <h3 class="phenomenon-title">전자기 유도</h3>
+              <p class="phenomenon-desc">
+                코일 근처의 자석을 움직이거나, 코일 자체를 자기장 속에서 회전시키면 코일에 전류가 흐릅니다.
+                이 원리로 발전소에서는 터빈을 돌려 전기를 생산하고, 변압기는 전압을 높이거나 낮춥니다.
+                무선 충전, 카드 리더, 금속 탐지기 모두 이 현상을 응용한 것입니다.
+              </p>
+            </div>
+          </article>
+
+          <article class="phenomenon">
+            <div class="phenomenon-visual phenomenon-visual--3">
+              <div class="phenomenon-wave">
+                <span class="wave-bar wave-bar--1"></span>
+                <span class="wave-bar wave-bar--2"></span>
+                <span class="wave-bar wave-bar--3"></span>
+                <span class="wave-bar wave-bar--4"></span>
+                <span class="wave-bar wave-bar--5"></span>
+                <span class="wave-bar wave-bar--6"></span>
+                <span class="wave-bar wave-bar--7"></span>
+                <span class="wave-bar wave-bar--8"></span>
+                <span class="wave-bar wave-bar--9"></span>
+                <span class="wave-bar wave-bar--10"></span>
+              </div>
+            </div>
+            <div class="phenomenon-body">
+              <div class="phenomenon-category" data-cat="파동">파동</div>
+              <h3 class="phenomenon-title">전자기파 스펙트럼</h3>
+              <p class="phenomenon-desc">
+                라디오파, 마이크로파, 적외선, 가시광선, 자외선, X선, 감마선. 이들은 모두 같은 전자기파이며
+                파장(또는 진동수)만 다릅니다. 파장이 짧을수록 진동수는 높고, 에너지도 커집니다.
+                우리 눈은 이 거대한 스펙트럼 중 아주 좁은 영역만 감지하도록 진화했습니다.
+              </p>
+            </div>
+          </article>
+
+          <article class="phenomenon">
+            <div class="phenomenon-visual phenomenon-visual--4">
+              <div class="phenomenon-circles">
+                <span class="circle-dot circle-dot--1"></span>
+                <span class="circle-dot circle-dot--2"></span>
+                <span class="circle-dot circle-dot--3"></span>
+                <span class="circle-dot circle-dot--4"></span>
+                <span class="circle-dot circle-dot--5"></span>
+              </div>
+            </div>
+            <div class="phenomenon-body">
+              <div class="phenomenon-category" data-cat="미시">미시</div>
+              <h3 class="phenomenon-title">로렌츠 힘</h3>
+              <p class="phenomenon-desc">
+                자기장 속을 움직이는 전하는 속도와 자기장 모두에 수직인 방향으로 힘을 받습니다.
+                이 힘 때문에 음극선관의 전자빔은 자기장에 의해 경로가 휘고,
+                사이클로트론에서는 전하가 나선 궤도를 그리며 가속됩니다.
+                지구 자기장이 태양풍으로부터 우리를 보호하는 것도 로렌츠 힘 덕분입니다.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 인터랙티브 시각화 ===== -->
+    <section id="visualization" class="section section--interactive">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-label" data-label="체험">인터랙티브</span>
+          <h2 class="section-title">전자기장 시각화</h2>
+          <p class="section-desc">아래 캔버스에서 전하(+/−)를 드래그해 배치하고, 전기장 선이 어떻게 형성되고 변화하는지 직접 확인해보세요. 두 전하의 상호작용이 만드는 힘의 지도를 볼 수 있습니다.</p>
+        </div>
+
+        <div class="viz-container">
+          <div class="viz-canvas-wrap">
+            <canvas id="fieldViz" class="viz-canvas" width="800" height="500"></canvas>
+            <div class="viz-hint" id="vizHint">
+              <span>캔버스에 전하를 드래그하여 배치하세요</span>
+              <span class="viz-hint-toggle" id="vizHintToggle">닫기</span>
+            </div>
+          </div>
+          <div class="viz-controls">
+            <div class="viz-legend">
+              <div class="legend-item">
+                <span class="legend-dot legend-dot--pos"></span>
+                <span>양전하 (+) — 클릭으로 배치</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot legend-dot--neg"></span>
+                <span>음전하 (−) — Shift+클릭으로 배치</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-line"></span>
+                <span>전기장 선</span>
+              </div>
+            </div>
+            <div class="viz-actions">
+              <button class="btn btn--small btn--secondary" id="clearChargeBtn">전하 초기화</button>
+              <button class="btn btn--small btn--secondary" id="toggleFieldLinesBtn">장선 토글</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="spectrum-section">
+          <div class="spectrum-header">
+            <h3 class="spectrum-title">전자기 스펙트럼</h3>
+            <p class="spectrum-desc">파장 증가에 따른 전자기파의 분류. 파장이 짧아질수록 에너지가 높고 위험성이 커집니다.</p>
+          </div>
+          <div class="spectrum-bar" id="spectrumBar">
+            <div class="spectrum-segment spectrum-segment--radio" data-wavelength="10³" data-label="라디오파" data-usage="통신, 방송">
+              <span class="seg-label">라디오파</span>
+              <span class="seg-wavelength">&gt; 1 m</span>
+              <span class="seg-usage">통신 · 방송</span>
+            </div>
+            <div class="spectrum-segment spectrum-segment--micro" data-wavelength="10⁻²" data-label="마이크로파" data-usage="무선통신, 난방">
+              <span class="seg-label">마이크로파</span>
+              <span class="seg-wavelength">1 mm – 1 m</span>
+              <span class="seg-usage">Wi-Fi · 전자레인지</span>
+            </div>
+            <div class="spectrum-segment spectrum-segment--ir" data-wavelength="10⁻⁵" data-label="적외선" data-usage="열 감지, 리모컨">
+              <span class="seg-label">적외선</span>
+              <span class="seg-wavelength">700 nm – 1 mm</span>
+              <span class="seg-usage">열화상 · 리모컨</span>
+            </div>
+            <div class="spectrum-segment spectrum-segment--visible spectrum-segment--active" data-wavelength="5×10⁻⁷" data-label="가시광선" data-usage="시각, 광합성">
+              <span class="seg-label">가시광선</span>
+              <span class="seg-wavelength">400 – 700 nm</span>
+              <span class="seg-usage">시각 · 광합성</span>
+            </div>
+            <div class="spectrum-segment spectrum-segment--uv" data-wavelength="10⁻⁸" data-label="자외선" data-usage="살균, 비타민 D">
+              <span class="seg-label">자외선</span>
+              <span class="seg-wavelength">10 – 400 nm</span>
+              <span class="seg-usage">살균 · 비타민 D</span>
+            </div>
+            <div class="spectrum-segment spectrum-segment--xray" data-wavelength="10⁻¹⁰" data-label="X선" data-usage="촬영, 결정학">
+              <span class="seg-label">X선</span>
+              <span class="seg-wavelength">0.01 – 10 nm</span>
+              <span class="seg-usage">의료 촬영 · 결정학</span>
+            </div>
+            <div class="spectrum-segment spectrum-segment--gamma" data-wavelength="10⁻¹²" data-label="감마선" data-usage="치료, 천체 관측">
+              <span class="seg-label">감마선</span>
+              <span class="seg-wavelength">&lt; 0.01 nm</span>
+              <span class="seg-usage">방사선 치료 · 천체</span>
+            </div>
+            <div class="spectrum-marker" id="spectrumMarker"></div>
+          </div>
+          <div class="spectrum-controls">
+            <label class="control-label">
+              파장 슬라이더:
+              <input type="range" id="wavelengthSlider" min="0" max="100" value="60" class="wavelength-slider">
+            </label>
+            <div class="slider-info">
+              <span id="sliderWavelength">600 nm</span>
+              <span id="sliderRegion">가시광선</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 응용 ===== -->
+    <section id="applications" class="section section--light">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-label" data-label="응용">현대 응용</span>
+          <h2 class="section-title">맥스웰이 없었다면 존재하지 않았을 것들</h2>
+          <p class="section-desc">전자기학의 응용은 전력 인프라에서부터 통신, 의료, 우주 탐사에 이르기까지 현대 문명의 거의 모든 기반 기술에 스며들어 있습니다.</p>
+        </div>
+
+        <div class="applications-grid">
+          <article class="app-card">
+            <div class="app-visual">
+              <div class="app-glow app-glow--1"></div>
+              <div class="app-icon app-icon--power">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <path d="M16 3 L16 8 M12 6 L16 3 L20 6" stroke="var(--electric)" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M9 12 L9 26 M23 12 L23 26 M9 20 L23 20" stroke="var(--electric)" stroke-width="1.5" stroke-linecap="round"/>
+                  <rect x="5" y="10" width="22" height="18" rx="3" stroke="var(--electric)" stroke-width="1.5" opacity="0.5"/>
+                </svg>
+              </div>
+            </div>
+            <div class="app-body">
+              <h3 class="app-title">전력 시스템</h3>
+              <p class="app-desc">
+                발전소에서 생산된 전기를 수백 km 떨어진 가정까지 손실 없이 보내는 것은 전자기학 없이는 불가능합니다.
+                변압기, 송전선, 배전반 모두 앙페르 법칙과 패러데이 법칙을 기반으로 설계됩니다.
+              </p>
+              <span class="app-tag">전력 공학</span>
+            </div>
+          </article>
+
+          <article class="app-card">
+            <div class="app-visual">
+              <div class="app-glow app-glow--2"></div>
+              <div class="app-icon app-icon--comm">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <circle cx="16" cy="16" r="10" stroke="var(--magnetic)" stroke-width="1.5" opacity="0.6"/>
+                  <path d="M16 6 A10 10 0 0 1 26 16" stroke="var(--magnetic)" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="16" cy="16" r="4" fill="var(--magnetic)" opacity="0.4"/>
+                  <circle cx="16" cy="16" r="1.5" fill="var(--magnetic)"/>
+                  <path d="M10 10 L16 16 L22 10" stroke="var(--magnetic)" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+                </svg>
+              </div>
+            </div>
+            <div class="app-body">
+              <h3 class="app-title">무선 통신</h3>
+              <p class="app-desc">
+                라디오, Wi-Fi, 5G, GPS, 블루투스 — 이들은 모두 안테나를 통해 전자기파를 송수신하는 기술입니다.
+                헤르트츠가 실험실에서 최초로 전자기파를 발생시킨 지 130여 년 만에,
+                우리는 전 지구적 무선 통신 네트워크를 구축했습니다.
+              </p>
+              <span class="app-tag">통신 공학</span>
+            </div>
+          </article>
+
+          <article class="app-card">
+            <div class="app-visual">
+              <div class="app-glow app-glow--3"></div>
+              <div class="app-icon app-icon--medical">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <circle cx="16" cy="14" r="9" stroke="var(--light)" stroke-width="1.5" opacity="0.5"/>
+                  <path d="M8 22 L16 14 L24 22" stroke="var(--light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="16" cy="14" r="3" fill="var(--light)" opacity="0.3"/>
+                  <circle cx="16" cy="14" r="1" fill="var(--light)"/>
+                </svg>
+              </div>
+            </div>
+            <div class="app-body">
+              <h3 class="app-title">의료 영상</h3>
+              <p class="app-desc">
+                MRI(자기 공명 영상)는 강한 자기장과 고주파를 이용해 인체 내부의 수소 원자 핵 스핀을 조작하여 영상을 얻습니다.
+                X선 촬영은 전자기파의 높은 투과력을 이용하고, CT는 여러 각도의 X선을 합성합니다.
+                현대 진단 의학은 전자기학 위에 세워진 거대한 건축물입니다.
+              </p>
+              <span class="app-tag">의료 공학</span>
+            </div>
+          </article>
+
+          <article class="app-card">
+            <div class="app-visual">
+              <div class="app-glow app-glow--4"></div>
+              <div class="app-icon app-icon--computing">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <rect x="6" y="6" width="20" height="20" rx="2" stroke="var(--electric)" stroke-width="1.5" opacity="0.5"/>
+                  <rect x="10" y="10" width="12" height="12" rx="1" stroke="var(--electric)" stroke-width="1.5"/>
+                  <path d="M10 14 L22 14 M14 10 L14 22" stroke="var(--electric)" stroke-width="1" opacity="0.6" stroke-dasharray="2 2"/>
+                  <circle cx="16" cy="16" r="1.5" fill="var(--electric)"/>
+                </svg>
+              </div>
+            </div>
+            <div class="app-body">
+              <h3 class="app-title">반도체 & 컴퓨팅</h3>
+              <p class="app-desc">
+                CPU, 메모리, 모든 디지털 기기는 전자기학의 응용입니다.
+                전자의 이동을 정밀하게 제어하여 논리 회로를 구성하고,
+                전계 효과 트랜지스터(FET)는 전기장으로 전류 흐름을 제어합니다.
+                현대 컴퓨팅의 문턱에는 언제나 전자기학이 있습니다.
+              </p>
+              <span class="app-tag">정보 공학</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 역사 타임라인 ===== -->
+    <section id="timeline" class="section section--dark">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-label" data-label="역사">연대표</span>
+          <h2 class="section-title">전자기학의 발견사</h2>
+          <p class="section-desc">탈레스의 정전기 관찰에서 맥스웰의 통합 이론, 그리고 아인슈타인의 상대성 이론에 이르기까지. 전자기학은 인류가 자연을 이해해온 지적 여정의 정수입니다.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-track" id="timelineTrack">
+            <div class="timeline-line"></div>
+            <div class="timeline-nodes">
+              <div class="tl-node" style="left:0%" data-year="600BC">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <span class="tl-year">기원전 600년</span>
+                  <h4 class="tl-title">탈레스의 정전기 관찰</h4>
+                  <p class="tl-desc">고대 그리스 철학자 탈레스가 호박(amber)을 문질러 정전기를 최초로 기록한 것으로 전해집니다. 'electron'이라는 단어는 그리스어로 호박을 뜻하는 'ἤλεκτρον'에서 유래합니다.</p>
+                </div>
+              </div>
+              <div class="tl-node" style="left:11%" data-year="1600">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <span class="tl-year">1600년</span>
+                  <h4 class="tl-title">길버트: 'De Magnete'</h4>
+                  <p class="tl-desc">윌리엄 길버트는 지구 자체가 거대한 자석임을 실험으로 증명하고, 전기와 자기를 처음으로 구분한 과학자로 평가받습니다. 그의 저서 <em>De Magnete</em>는 실험 과학의 모범이 되었습니다.</p>
+                </div>
+              </div>
+              <div class="tl-node" style="left:22%" data-year="1752">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <span class="tl-year">1752년</span>
+                  <h4 class="tl-title">프랭클린의 연 실험</h4>
+                  <p class="tl-desc">벤저민 프랭클린은 번개가 전기적 현상임을 증명하고, 전하를 '+'와 '−'로 구분하는 관례를 확립했습니다. 피뢰침을 발명해 실용적 기여로도 이름을 남겼습니다.</p>
+                </div>
+              </div>
+              <div class="tl-node" style="left:33%" data-year="1785">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <span class="tl-year">1785년</span>
+                  <h4 class="tl-title">쿨롱의 법칙</h4>
+                  <p class="tl-desc">샤를 드 쿨롱은 비틀림 저울 실험을 통해 두 점전하 사이의 힘이 거리의 제곱에 반비례함을 정량적으로 증명했습니다. 이후 '쿨롱(C)'은 전하량의 SI 단위가 됩니다.</p>
+                </div>
+              </div>
+              <div class="tl-node" style="left:44%" data-year="1820">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <span class="tl-year">1820년</span>
+                  <h4 class="tl-title">외르스테드: 전류의 자기 효과</h4>
+                  <p class="tl-desc">한스 크리스티안 외르스테드는 강의 실험 중 전류가 나침반 바늘을 움직인다는 사실을 발견, 전기과 자기의 연관성을 최초로 입증했습니다. 이 발견은 앙페르, 패러데이로 이어지는 연쇄 연구의 시발점이 됩니다.</p>
+                </div>
+              </div>
+              <div class="tl-node" style="left:55%" data-year="1831">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <span class="tl-year">1831년</span>
+                  <h4 class="tl-title">패러데이의 전자기 유도</h4>
+                  <p class="tl-desc">마이클 패러데이는 변화하는 자기장이 전기장을 만든다는 '전자기 유도'를 발견합니다. 그는 수학보다 직관과 실험으로 사고한 과학자로, '장(field)' 개념을 최초로 도입한 인물로 평가됩니다.</p>
+                </div>
+              </div>
+              <div class="tl-node" style="left:66%" data-year="1865">
+                <div class="tl-dot tl-dot--major"></div>
+                <div class="tl-content">
+                  <span class="tl-year">1865년</span>
+                  <h4 class="tl-title">맥스웰 방정식 완성</h4>
+                  <p class="tl-desc">제임스 클러크 맥스웰은 「A Dynamical Theory of the Electromagnetic Field」에서 네 개의 방정식으로 알려진 형태를 발표합니다. 그는 이 방정식으로부터 전자기파가 진공에서 광속으로 전파됨을 유도하고, 빛이 전자기파임을 예측합니다.</p>
+                </div>
+              </div>
+              <div class="tl-node" style="left:77%" data-year="1887">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <span class="tl-year">1887년</span>
+                  <h4 class="tl-title">헤르츠: 전자기파의 실험적 증명</h4>
+                  <p class="tl-desc">하인리히 루돌프 헤르츠는 스파크 갭 송신기와 수신기를 이용해 맥스웰이 예측한 전자기파를 실험실에서 실제로 생성·검출하는 데 성공합니다. 주파수 단위 'Hz'는 그의 이름에서 유래합니다.</p>
+                </div>
+              </div>
+              <div class="tl-node" style="left:88%" data-year="1905">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <span class="tl-year">1905년</span>
+                  <h4 class="tl-title">광전 효과 & 상대성 이론</h4>
+                  <p class="tl-desc">아인슈타인은 광전 효과를 광양자(photon) 개념으로 설명하여 양자역학의 씨앗을 심었고, 특수 상대성 이론에서 전기와 자기가 관찰자에 따라 상호 변환됨을 보여 전자기학의 상대론적 본질을 밝혔습니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-footer">
+          <div class="tl-end-note">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="8" stroke="var(--electric)" stroke-width="1.5" opacity="0.4"/>
+              <path d="M6 10 L10 14 L14 10" stroke="var(--electric)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p>전자기학은 여전히 진행 중인 탐구입니다. 오늘날에도 양자 전기역학(QED), 플라즈마 물리학, 자기 유체 역학(MHD) 등에서 그 경계는 확장되고 있습니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+            <circle cx="14" cy="14" r="12" stroke="var(--electric)" stroke-width="1.5" opacity="0.5"/>
+            <circle cx="14" cy="14" r="4" fill="var(--electric)" opacity="0.3"/>
+            <circle cx="14" cy="14" r="1.5" fill="var(--electric)"/>
+          </svg>
+        </span>
+        <span>전자기학 — 물리학의 중심</span>
+      </div>
+      <div class="footer-links">
+        <a href="#top">맨 위로</a>
+        <a href="#fundamentals">기본 원리</a>
+        <a href="#maxwell">맥스웰 방정식</a>
+        <a href="#visualization">시각화</a>
+      </div>
+      <p class="footer-copy">
+        전자기학 학습 자료 · Maxwell's Equations &amp; Electromagnetic Phenomena
+      </p>
+    </div>
+  </footer>
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true">
+    <div class="scroll-progress-bar"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
